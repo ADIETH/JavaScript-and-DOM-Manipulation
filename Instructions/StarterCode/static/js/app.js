@@ -20,22 +20,9 @@ var NextButton    =   d3.select("#next");
 var PreviousButton    =   d3.select("#prev");
 var pageNum = 0;
 
-// Create function fo the next click  button 
-NextButton.on("click", function clickNext() {
-    pageNum++;
-    if (pageNum >= (tableData.length/20)){pageNum = pageNum-1;};
-    renderTable();
-});
-
-// Click function fot Previous click button
-PreviousButton.on("click", function clickPrev() {
-    pageNum--;
-    if (pageNum < 0){pageNum = 0;};
-    renderTable();
-});
 
 
-// renderTable  from json  tableData to the tbody and limit the number of record display per page to 20 by using slice
+// create function and renderTable  from json  tableData to the tbody and limit the number of record display per page to 20 by using slice
 
 function renderTable() {
 
@@ -52,6 +39,7 @@ function renderTable() {
     });
 
   };
+
 
 // create function for Click search button for all searchable item
 
@@ -77,7 +65,7 @@ SearchButton.on("click", function searchBtn() {
 
     }
 
-    // Assign filter to array to filter all city  from data table that matches with searched city
+    // create function and Assign filter to array to filter all city  from data table that matches with searched city
 
     if (SearchCity != "") {
         tableData = tableData.filter(function (city) {
@@ -89,45 +77,68 @@ SearchButton.on("click", function searchBtn() {
     });
     }
 
-    // Assign filter to Array to filter all state from data table that matches with searched state, otherwise don't add it to 
+    // create function and Assign filter to Array to filter all state from data table that matches with searched state, otherwise don't add it 
 
     if (SearchState != "") {
         tableData = tableData.filter(function (state) {
             var dataState = state.state;
+            console.log(SearchState)
 
             return dataState === SearchState;
         });
     }
 
+    // create function and Assign filter to Array to filter all country from data table that matches with searched state, otherwise don't add it 
+    // however in our given data only country the data collected is US
+
     if (SearchCountry != "") {
         tableData = tableData.filter(function (country) {
             var dataCountry = country.country;
+            console.log(SearchCountry)
 
             return dataCountry === SearchCountry;
         });
     }
 
+    // create function and Assign filter to Array to filter all shapes from data table that matches with searched shape, otherwise don't add it 
+
     if (SearchShape != "") {
         tableData = tableData.filter(function (shape) {
             var dataShape = shape.shape;
+            console.log(SearchShape)
 
             return dataShape === SearchShape;
         });
     }
 
+
+      // Create function fo the next click  button 
+NextButton.on("click", function clickNext() {
+    pageNum++;
+    if (pageNum >= (tableData.length/20)){pageNum = pageNum-1;};
+    renderTable();
+});
+
+// Click function fot Previous click button
+PreviousButton.on("click", function clickPrev() {
+    pageNum--;
+    if (pageNum < 0){pageNum = 0;};
+    renderTable();
+});
+
     renderTable();
 });
 
 
-// Click reLoad //
+// Create function for reload button to set to the defaul after searching by filterd request
 ReloadButton.on("click", function reloadBtn() {
 
     tableData = data;
-    date   .property("value", '');
-    city   .property("value", '');
-    state  .property("value", '');
+    date.property("value", '');
+    city.property("value", '');
+    state.property("value", '');
     country.property("value", '');
-    shape  .property('value', '');
+    shape.property('value', '');
 
     renderTable();
 });
